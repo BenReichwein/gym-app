@@ -71,6 +71,7 @@ func Register() gin.HandlerFunc {
 						Status: http.StatusCreated, 
 						Message: "Registration successful",
 						Data: map[string]interface{}{
+							"name": user.Name,
 							"email": user.Email,
 						},
 					})
@@ -108,6 +109,8 @@ func Login() gin.HandlerFunc {
 
 		err := authCollection.FindOne(context.TODO(), 
 		bson.M{"email": user.Email}).Decode(&result)
+
+		log.Println(result);
 
 		if err != nil {
 			c.JSON(http.StatusConflict, responses.AuthResponse{
@@ -147,7 +150,8 @@ func Login() gin.HandlerFunc {
 				Status: http.StatusCreated, 
 				Message: "success", 
 				Data: map[string]interface{}{
-					"email": user.Email,
+					"name": result.Name,
+					"email": result.Email,
 					"token": tokenString,
 				},
 			})
@@ -179,8 +183,6 @@ func GetToken() gin.HandlerFunc {
 		}
 
 		tknStr := string(tknAsByte)
-		log.Println("HERE")
-		log.Println(tknStr)
 
 		// Initialize a new instance of `Claims`
 		claims := &Claims{}

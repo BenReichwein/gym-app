@@ -57,8 +57,8 @@ class _RouterScreenState extends State<RouterScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'user',
-            backgroundColor: Colors.red,
+            label: 'Home',
+            backgroundColor: Colors.grey,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
@@ -77,7 +77,7 @@ class _RouterScreenState extends State<RouterScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );

@@ -67,10 +67,11 @@ class AuthProvider with ChangeNotifier {
     return result;
   }
 
-  FutureOr<dynamic> register(String email, String password) async {
+  FutureOr<dynamic> register(String name, String email, String password) async {
     var result;
     var res = await post(AppUrl.register,
         body: json.encode({
+          'name': name,
           'email': email,
           'password': password,
         }),

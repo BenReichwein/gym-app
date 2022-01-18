@@ -19,18 +19,25 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final formKey = new GlobalKey<FormState>();
-  late String _email, _password, _confirmPassword;
+  final formKey = GlobalKey<FormState>();
+  late String _name, _email, _password, _confirmPassword;
 
   @override
   Widget build(BuildContext context) {
     AuthProvider auth = Provider.of<AuthProvider>(context);
 
+    final nameField = TextFormField(
+      autofocus: false,
+      validator: (value) => value!.isEmpty ? "Your name is required" : null,
+      onSaved: (value) => _name = value!,
+      decoration: buildInputDecoration("Name", Icons.perm_identity_sharp),
+    );
+
     final emailField = TextFormField(
       autofocus: false,
       validator: validateEmail,
       onSaved: (value) => _email = value!,
-      decoration: buildInputDecoration("Confirm password", Icons.email),
+      decoration: buildInputDecoration("Email", Icons.email),
     );
 
     final passwordField = TextFormField(
@@ -38,7 +45,7 @@ class _RegisterState extends State<Register> {
       obscureText: true,
       validator: (value) => value!.isEmpty ? "Please enter password" : null,
       onSaved: (value) => _password = value!,
-      decoration: buildInputDecoration("Confirm password", Icons.lock),
+      decoration: buildInputDecoration("Password", Icons.lock),
     );
 
     final confirmPassword = TextFormField(
@@ -62,7 +69,7 @@ class _RegisterState extends State<Register> {
       print(formKey.currentState.toString());
       if (form!.validate()) {
         form.save();
-        Map responseData = await (auth.register(_email, _password));
+        Map responseData = await (auth.register(_name, _email, _password));
         print(responseData);
         if (responseData['data'] != null) {
           User? user = responseData['data'];
@@ -93,6 +100,10 @@ class _RegisterState extends State<Register> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 15.0),
+                const Text("Name"),
+                const SizedBox(height: 5.0),
+                nameField,
                 const SizedBox(height: 15.0),
                 const Text("Email"),
                 const SizedBox(height: 5.0),

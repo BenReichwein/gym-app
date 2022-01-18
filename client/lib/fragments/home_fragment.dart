@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
           const SizedBox(
             height: 100,
           ),
-          Center(child: Text(user.email!)),
+          Center(child: Text(user.name!)),
           const SizedBox(height: 100),
           longButtons("Logout", logout)
         ],

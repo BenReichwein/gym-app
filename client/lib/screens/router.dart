@@ -1,3 +1,4 @@
+import 'package:client/fragments/exercise_fragment.dart';
 import 'package:client/util/check_token.dart';
 import 'package:client/util/shared_preference.dart';
 import 'package:flutter/material.dart';
@@ -39,46 +40,53 @@ class _RouterScreenState extends State<RouterScreen> {
   //list of widgets to call ontap
   final widgetOptions = [
     Home(),
-    Home(),
-    Home(),
-    Home(),
+    Exercise(),
   ];
-
-  final widgetTitle = ["Home", "...", "..."];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widgetTitle.elementAt(_selectedIndex))),
       body: Center(
         child: widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.grey,
+      bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: Offset(0, 0), 
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-            backgroundColor: Colors.green,
+          child: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+                backgroundColor: Colors.grey,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.fitness_center),
+                label: 'Exercise',
+                backgroundColor: Colors.grey,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.school),
+                label: 'School',
+                backgroundColor: Colors.grey,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+                backgroundColor: Colors.grey,
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.blue,
+            onTap: _onItemTapped,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-            backgroundColor: Colors.purple,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            backgroundColor: Colors.pink,
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
       ),
     );
   }

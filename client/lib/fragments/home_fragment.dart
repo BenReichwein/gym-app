@@ -3,6 +3,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:client/providers/auth_provider.dart';
 import 'package:client/util/shared_preference.dart';
+import 'package:client/widgets/home_header.dart';
 import 'package:client/widgets/long_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:client/data_models/user.dart';
@@ -35,15 +36,13 @@ class _HomeState extends State<Home> {
     };
 
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 100,
-          ),
-          Center(child: Text(user.name!)),
-          const SizedBox(height: 100),
-          longButtons("Logout", logout)
-        ],
+      body: Center(
+        child: Column(
+          children: [
+            HomeHeader(user.name!),
+            longButtons("Logout", logout)
+          ],
+        ),
       ),
     );
   }
